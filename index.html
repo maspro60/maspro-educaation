@@ -33,6 +33,14 @@
             background-image: radial-gradient(#dce5dc 1px, transparent 1px);
             background-size: 24px 24px;
         }
+        .welcome { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; padding: 24px; background: rgba(23,35,31,.42); }
+        .welcome.hidden { display: none; }
+        .welcome-card { width: min(520px, 100%); padding: 38px; border-radius: 18px; background: var(--paper); box-shadow: 0 24px 70px rgba(23,35,31,.22); text-align: center; }
+        .welcome-mark { width: 52px; height: 52px; display: grid; place-items: center; margin: 0 auto 18px; border-radius: 16px 16px 16px 4px; color: white; background: var(--green); font: 700 25px "Space Grotesk", sans-serif; }
+        .welcome-card h2 { margin-bottom: 12px; font-size: 32px; }
+        .welcome-card p { color: var(--muted); line-height: 1.65; margin-bottom: 24px; }
+        .start-button { border: 0; border-radius: 9px; padding: 13px 23px; color: white; background: var(--green); font-weight: 700; }
+        .start-button:hover { background: #095c48; }
         button, input { font: inherit; }
         button { cursor: pointer; }
         .shell { max-width: 1220px; margin: 0 auto; padding: 0 30px 70px; }
@@ -121,6 +129,14 @@
     </style>
 </head>
 <body>
+    <section class="welcome" id="welcome" role="dialog" aria-labelledby="welcomeTitle" aria-modal="true">
+        <div class="welcome-card">
+            <div class="welcome-mark">M</div>
+            <h2 id="welcomeTitle">Welcome to Maspro</h2>
+            <p>Maspro helps senior secondary students understand difficult subjects with clear explanations, useful examples, and lessons written for real questions.</p>
+            <button class="start-button" id="startLearning" type="button">Start learning</button>
+        </div>
+    </section>
     <div class="shell">
         <header>
             <a class="brand" href="#top" aria-label="Maspro home"><span class="brand-mark">M</span><span class="brand-name">maspro</span></a>
@@ -189,6 +205,13 @@
         <footer><span>© 2026 Maspro Education</span><span>Built for curious minds</span></footer>
     </div>
     <script>
+        const welcome = document.getElementById("welcome");
+        if (localStorage.getItem("masproWelcomeSeen") === "true") welcome.classList.add("hidden");
+        document.getElementById("startLearning").addEventListener("click", () => {
+            localStorage.setItem("masproWelcomeSeen", "true");
+            welcome.classList.add("hidden");
+        });
+
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", () => navigator.serviceWorker.register("service-worker.js"));
         }
