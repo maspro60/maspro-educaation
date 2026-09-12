@@ -108,6 +108,12 @@
         .publish { justify-self: start; border: 0; border-radius: 8px; padding: 11px 17px; color: white; background: var(--navy); font-weight: 700; }
         .publish:hover { background: #162f4a; }
         .creator-status { align-self: center; color: var(--green); font-size: 12px; }
+        .owner-login { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+        .owner-login input { min-width: 220px; border: 1px solid #d8dfd8; border-radius: 8px; padding: 11px 12px; outline: none; }
+        .owner-login button { border: 0; border-radius: 8px; padding: 11px 17px; color: white; background: var(--navy); font-weight: 700; }
+        .owner-login button:hover { background: #162f4a; }
+        .owner-message { align-self: center; color: #a84a3b; font-size: 12px; }
+        .hidden { display: none; }
         footer { border-top: 1px solid var(--line); margin-top: 70px; padding-top: 20px; color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; }
         @keyframes reveal { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
         @media (max-width: 800px) { .hero { grid-template-columns: 1fr; gap: 35px; padding: 53px 0; } .hero-art { min-height: 260px; } .hero-image { height: 240px; } .subject-grid { grid-template-columns: repeat(2, 1fr); } .lower { grid-template-columns: 1fr; gap: 35px; } }
@@ -166,8 +172,13 @@
             </section>
             <details class="creator">
                 <summary>Creator’s desk: add a lesson</summary>
-                <p class="creator-copy">Publish your own explanations here. They are saved in this browser and become searchable immediately.</p>
-                <form class="creator-form" id="creatorForm">
+                <p class="creator-copy">Owner access is required to publish lessons. This temporary password gate will be replaced by Firebase later.</p>
+                <form class="owner-login" id="ownerLogin">
+                    <input id="ownerPassword" type="password" required placeholder="Owner password" aria-label="Owner password">
+                    <button type="submit">Unlock creator desk</button>
+                    <span class="owner-message" id="ownerMessage" role="status"></span>
+                </form>
+                <form class="creator-form hidden" id="creatorForm" hidden>
                     <label>Topic <input id="lessonTopic" required placeholder="e.g. Cell division"></label>
                     <label>Subject <input id="lessonSubject" required placeholder="e.g. Biology"></label>
                     <label class="wide">Your explanation <textarea id="lessonBody" required placeholder="Explain it in your own clear words..."></textarea></label>
@@ -182,6 +193,7 @@
             window.addEventListener("load", () => navigator.serviceWorker.register("service-worker.js"));
         }
 
+        const OWNER_PASSWORD = "MasproOwner!2026";
         const searchForm = document.getElementById("searchForm");
         const searchInput = document.getElementById("searchInput");
         const result = document.getElementById("result");
@@ -209,6 +221,19 @@
         searchForm.addEventListener("submit", (event) => { event.preventDefault(); showResult(searchInput.value); });
         document.querySelectorAll("[data-topic]").forEach((button) => button.addEventListener("click", () => { searchInput.value = button.dataset.topic; showResult(button.dataset.topic); searchInput.focus(); }));
         subjectButtons.forEach((button) => button.addEventListener("click", () => { subjectButtons.forEach((item) => item.classList.remove("active")); button.classList.add("active"); searchInput.placeholder = `Search ${button.dataset.subject} topics...`; }));
+        document.getElementById("ownerLogin").addEventListener("submit", (event) => {
+            event.preventDefault();
+            const message = document.getElementById("ownerMessage");
+            if (document.getElementById("ownerPassword").value === OWNER_PASSWORD) {
+                document.getElementById("creatorForm").classList.remove("hidden");
+                document.getElementById("creatorForm").hidden = false;
+                document.getElementById("ownerLogin").classList.add("hidden");
+                message.textContent = "Creator desk unlocked.";
+                message.style.color = "var(--green)";
+            } else {
+                message.textContent = "That password is not correct.";
+            }
+        });
         document.getElementById("creatorForm").addEventListener("submit", (event) => {
             event.preventDefault();
             const topic = document.getElementById("lessonTopic").value.trim();
