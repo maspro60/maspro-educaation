@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maspro | Make it make sense</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #17231f;
+            --muted: #66726e;
+            --paper: #f8f7f2;
+            --card: #ffffff;
+            --line: #e5e8e1;
+            --mint: #d8f1df;
+            --green: #0d765c;
+            --orange: #f4a261;
+            --navy: #203b59;
+            --shadow: 0 18px 50px rgba(23, 35, 31, .08);
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: var(--paper);
+            font-family: "DM Sans", sans-serif;
+            background-image: radial-gradient(#dce5dc 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        button, input { font: inherit; }
+        button { cursor: pointer; }
+        .shell { max-width: 1220px; margin: 0 auto; padding: 0 30px 70px; }
+        header {
+            height: 82px; display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 1px solid var(--line);
+        }
+        .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); }
+        .brand-mark { width: 35px; height: 35px; display: grid; place-items: center; background: var(--green); color: white; border-radius: 11px 11px 11px 3px; font-weight: 700; }
+        .brand-name { font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 21px; letter-spacing: -.5px; }
+        nav { display: flex; align-items: center; gap: 28px; }
+        nav a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 600; }
+        nav a:hover { color: var(--green); }
+        .profile { display: flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 600; }
+        .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--orange); display: grid; place-items: center; color: #593d26; font-size: 12px; }
+
+        .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 60px; align-items: center; padding: 72px 0 64px; }
+        .eyebrow { display: inline-flex; align-items: center; gap: 8px; color: var(--green); text-transform: uppercase; letter-spacing: 1.5px; font-size: 11px; font-weight: 700; }
+        .eyebrow::before { content: ""; width: 25px; height: 2px; background: var(--orange); }
+        h1, h2, h3, p { margin-top: 0; }
+        h1 { max-width: 590px; margin: 17px 0 18px; font: 600 clamp(42px, 6vw, 72px)/.98 "Space Grotesk", sans-serif; letter-spacing: -3.5px; }
+        h1 span { color: var(--green); }
+        .hero-copy { max-width: 480px; color: var(--muted); line-height: 1.7; font-size: 16px; margin-bottom: 28px; }
+        .search-wrap { position: relative; max-width: 580px; }
+        .search-wrap input { width: 100%; height: 62px; border: 1px solid #d8dfd8; border-radius: 12px; padding: 0 144px 0 53px; color: var(--ink); background: var(--card); outline: none; box-shadow: 0 10px 25px rgba(23, 35, 31, .05); }
+        .search-wrap input:focus { border-color: var(--green); box-shadow: 0 0 0 4px rgba(13, 118, 92, .12); }
+        .search-icon { position: absolute; left: 20px; top: 20px; color: var(--muted); font-size: 21px; }
+        .search-button { position: absolute; right: 7px; top: 7px; height: 48px; padding: 0 20px; border: 0; border-radius: 8px; color: white; background: var(--green); font-weight: 700; }
+        .search-button:hover { background: #095c48; }
+        .hint { font-size: 12px; color: var(--muted); margin: 11px 0 0 5px; }
+        .hero-art { position: relative; min-height: 340px; }
+        .hero-image { width: 78%; height: 300px; object-fit: cover; border-radius: 18px; display: block; margin-left: auto; filter: saturate(.85); }
+        .note { position: absolute; left: 0; bottom: 7px; width: 220px; padding: 19px; border-radius: 13px; background: var(--navy); color: white; box-shadow: var(--shadow); }
+        .note strong { display: block; font: 600 22px "Space Grotesk", sans-serif; margin-bottom: 5px; }
+        .note small { color: #c9d4df; line-height: 1.4; }
+        .spark { position: absolute; top: 3px; right: 2px; width: 72px; height: 72px; display: grid; place-items: center; background: var(--orange); border-radius: 50%; color: #5f422c; font-size: 27px; transform: rotate(12deg); }
+
+        .section-head { display: flex; align-items: end; justify-content: space-between; margin: 0 0 21px; }
+        h2 { font: 600 26px "Space Grotesk", sans-serif; letter-spacing: -1px; margin-bottom: 4px; }
+        .section-sub { margin: 0; color: var(--muted); font-size: 14px; }
+        .view-all { color: var(--green); font-weight: 700; font-size: 13px; text-decoration: none; }
+        .subjects { padding: 3px 0 62px; }
+        .subject-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; }
+        .subject { min-height: 126px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); padding: 18px; text-align: left; transition: transform .2s, box-shadow .2s, border-color .2s; }
+        .subject:hover, .subject.active { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--green); }
+        .subject-icon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 9px; margin-bottom: 15px; font-size: 18px; }
+        .subject:nth-child(1) .subject-icon { background: #d9f0e1; } .subject:nth-child(2) .subject-icon { background: #ffe5c8; } .subject:nth-child(3) .subject-icon { background: #dae8f6; } .subject:nth-child(4) .subject-icon { background: #f5dce0; }
+        .subject strong { display: block; font-size: 15px; margin-bottom: 4px; } .subject span { color: var(--muted); font-size: 12px; }
+        .lower { display: grid; grid-template-columns: 1fr 330px; gap: 42px; align-items: start; }
+        .topic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .topic { display: flex; align-items: center; justify-content: space-between; min-height: 73px; padding: 15px 17px; border: 1px solid var(--line); background: var(--card); border-radius: 10px; text-align: left; }
+        .topic:hover { border-color: var(--orange); }
+        .topic-title { font-weight: 700; font-size: 14px; display: block; margin-bottom: 5px; } .topic-meta { font-size: 12px; color: var(--muted); }
+        .arrow { color: var(--green); font-size: 20px; }
+        .side-panel { background: #eef5ed; border: 1px solid #dce9dc; padding: 22px; border-radius: 13px; }
+        .side-panel h3 { font: 600 19px "Space Grotesk", sans-serif; margin-bottom: 7px; }
+        .side-panel p { color: var(--muted); font-size: 13px; line-height: 1.55; }
+        .streak { display: flex; align-items: center; gap: 13px; border-top: 1px solid #d5e3d5; margin-top: 18px; padding-top: 17px; }
+        .streak-icon { font-size: 25px; } .streak strong { display: block; font-size: 14px; } .streak span { color: var(--muted); font-size: 12px; }
+        .result { display: none; margin: 17px 0 0; padding: 16px 18px; border: 1px solid #b9d9c4; background: #f1faf3; border-radius: 10px; color: var(--ink); line-height: 1.55; font-size: 14px; }
+        .result.show { display: block; animation: reveal .25s ease-out; }
+        .result strong { color: var(--green); }
+        .creator { margin-top: 62px; padding: 25px; border: 1px dashed #b8cdbb; border-radius: 13px; background: rgba(255,255,255,.62); }
+        .creator summary { cursor: pointer; color: var(--green); font: 600 18px "Space Grotesk", sans-serif; }
+        .creator summary::marker { color: var(--orange); }
+        .creator-copy { color: var(--muted); font-size: 13px; margin: 13px 0 18px; }
+        .creator-form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .creator-form label { display: grid; gap: 6px; color: var(--muted); font-size: 12px; font-weight: 700; }
+        .creator-form input, .creator-form textarea { width: 100%; border: 1px solid #d8dfd8; border-radius: 8px; padding: 11px 12px; color: var(--ink); background: white; outline: none; }
+        .creator-form input:focus, .creator-form textarea:focus { border-color: var(--green); }
+        .creator-form textarea { min-height: 87px; resize: vertical; }
+        .creator-form .wide { grid-column: 1 / -1; }
+        .publish { justify-self: start; border: 0; border-radius: 8px; padding: 11px 17px; color: white; background: var(--navy); font-weight: 700; }
+        .publish:hover { background: #162f4a; }
+        .creator-status { align-self: center; color: var(--green); font-size: 12px; }
+        footer { border-top: 1px solid var(--line); margin-top: 70px; padding-top: 20px; color: var(--muted); font-size: 12px; display: flex; justify-content: space-between; }
+        @keyframes reveal { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 800px) { .hero { grid-template-columns: 1fr; gap: 35px; padding: 53px 0; } .hero-art { min-height: 260px; } .hero-image { height: 240px; } .subject-grid { grid-template-columns: repeat(2, 1fr); } .lower { grid-template-columns: 1fr; gap: 35px; } }
+        @media (max-width: 520px) { .shell { padding: 0 18px 45px; } header { height: 70px; } nav { display: none; } .profile { font-size: 0; } h1 { font-size: 46px; letter-spacing: -2.5px; } .search-wrap input { padding-right: 112px; } .search-button { padding: 0 14px; } .subject-grid, .topic-grid { grid-template-columns: 1fr 1fr; gap: 9px; } .subject { min-height: 115px; padding: 13px; } .hero-art { min-height: 230px; } .hero-image { width: 83%; height: 210px; } .note { width: 175px; padding: 14px; } .note strong { font-size: 18px; } footer { display: block; line-height: 1.7; } }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <header>
+            <a class="brand" href="#top" aria-label="Maspro home"><span class="brand-mark">M</span><span class="brand-name">maspro</span></a>
+            <nav aria-label="Main navigation"><a href="#subjects">Subjects</a><a href="#topics">Explore topics</a><a href="#about">About</a></nav>
+            <div class="profile"><span class="avatar">ST</span><span>Student</span></div>
+        </header>
+
+        <main id="top">
+            <section class="hero">
+                <div>
+                    <div class="eyebrow">Your study companion</div>
+                    <h1>Make the hard stuff <span>make sense.</span></h1>
+                    <p class="hero-copy">Stuck on a senior secondary topic? Search for a clear explanation, find a worked example, and get back to learning with confidence.</p>
+                    <form class="search-wrap" id="searchForm">
+                        <span class="search-icon" aria-hidden="true">⌕</span>
+                        <input id="searchInput" type="search" placeholder="What are you trying to understand?" aria-label="Search a topic">
+                        <button class="search-button" type="submit">Explain it</button>
+                    </form>
+                    <p class="hint">Try “quadratic equations” or “photosynthesis”</p>
+                    <div class="result" id="result" role="status"></div>
+                </div>
+                <div class="hero-art" aria-label="Students learning together">
+                    <img class="hero-image" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=85" alt="Students studying together around a table">
+                    <div class="spark" aria-hidden="true">✦</div>
+                    <div class="note"><strong>Learn at your pace.</strong><small>Simple steps. Real understanding. No question is too small.</small></div>
+                </div>
+            </section>
+
+            <section class="subjects" id="subjects">
+                <div class="section-head"><div><h2>Pick a subject</h2><p class="section-sub">Start with what is on your desk today.</p></div><a class="view-all" href="#topics">View all topics →</a></div>
+                <div class="subject-grid">
+                    <button class="subject active" data-subject="Mathematics"><span class="subject-icon">∑</span><strong>Mathematics</strong><span>Numbers, algebra & more</span></button>
+                    <button class="subject" data-subject="Biology"><span class="subject-icon">⌁</span><strong>Biology</strong><span>Life & living systems</span></button>
+                    <button class="subject" data-subject="Physics"><span class="subject-icon">◉</span><strong>Physics</strong><span>Forces, energy & motion</span></button>
+                    <button class="subject" data-subject="Chemistry"><span class="subject-icon">⚗</span><strong>Chemistry</strong><span>Matter & reactions</span></button>
+                </div>
+            </section>
+
+            <section class="lower" id="topics">
+                <div><div class="section-head"><div><h2>Popular right now</h2><p class="section-sub">Jump into a topic students ask about often.</p></div></div>
+                    <div class="topic-grid">
+                        <button class="topic" data-topic="Quadratic equations"><span><span class="topic-title">Quadratic equations</span><span class="topic-meta">Mathematics · 8 min read</span></span><span class="arrow">↗</span></button>
+                        <button class="topic" data-topic="Photosynthesis"><span><span class="topic-title">Photosynthesis</span><span class="topic-meta">Biology · 6 min read</span></span><span class="arrow">↗</span></button>
+                        <button class="topic" data-topic="Newton's laws"><span><span class="topic-title">Newton’s laws</span><span class="topic-meta">Physics · 10 min read</span></span><span class="arrow">↗</span></button>
+                        <button class="topic" data-topic="Organic chemistry"><span><span class="topic-title">Organic chemistry</span><span class="topic-meta">Chemistry · 12 min read</span></span><span class="arrow">↗</span></button>
+                    </div>
+                </div>
+                <aside class="side-panel" id="about"><h3>Small steps add up.</h3><p>Keep a question in your pocket and bring it here whenever you get stuck. Understanding grows one clear answer at a time.</p><div class="streak"><span class="streak-icon">✹</span><div><strong>Ready when you are</strong><span>Ask your first question today</span></div></div></aside>
+            </section>
+            <details class="creator">
+                <summary>Creator’s desk: add a lesson</summary>
+                <p class="creator-copy">Publish your own explanations here. They are saved in this browser and become searchable immediately.</p>
+                <form class="creator-form" id="creatorForm">
+                    <label>Topic <input id="lessonTopic" required placeholder="e.g. Cell division"></label>
+                    <label>Subject <input id="lessonSubject" required placeholder="e.g. Biology"></label>
+                    <label class="wide">Your explanation <textarea id="lessonBody" required placeholder="Explain it in your own clear words..."></textarea></label>
+                    <button class="publish" type="submit">Publish lesson</button><span class="creator-status" id="creatorStatus" role="status"></span>
+                </form>
+            </details>
+        </main>
+        <footer><span>© 2026 Maspro Education</span><span>Built for curious minds</span></footer>
+    </div>
+    <script>
+        const searchForm = document.getElementById("searchForm");
+        const searchInput = document.getElementById("searchInput");
+        const result = document.getElementById("result");
+        const subjectButtons = document.querySelectorAll(".subject");
+
+        const explanations = {
+            "quadratic equations": "A quadratic equation has the form ax² + bx + c = 0. Solve it by factoring, completing the square, or using the quadratic formula: x = (-b ± √(b² - 4ac)) / 2a.",
+            "photosynthesis": "Photosynthesis is how green plants make glucose. Using light energy, chlorophyll helps combine carbon dioxide and water to produce glucose and oxygen: 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂.",
+            "newton's laws": "Newton’s three laws describe motion: objects keep their motion unless a force acts, acceleration depends on force and mass (F = ma), and every action has an equal and opposite reaction.",
+            "organic chemistry": "Organic chemistry studies carbon compounds. Start by learning functional groups, because they predict how a molecule behaves and which reactions it can undergo."
+        };
+        const savedLessons = JSON.parse(localStorage.getItem("masproLessons") || "{}");
+        Object.assign(explanations, savedLessons);
+
+        function showResult(topic) {
+            const cleanTopic = topic.trim();
+            if (!cleanTopic) { searchInput.focus(); return; }
+            const explanation = explanations[cleanTopic.toLowerCase()];
+            result.innerHTML = explanation
+                ? `<strong>${cleanTopic}</strong><br>${explanation}`
+                : `<strong>Let’s unpack “${cleanTopic}”.</strong><br>Your lesson library does not cover this yet. Add your explanation in Creator’s desk, or connect an AI tutor to answer questions you have not written a lesson for.`;
+            result.classList.add("show");
+        }
+
+        searchForm.addEventListener("submit", (event) => { event.preventDefault(); showResult(searchInput.value); });
+        document.querySelectorAll("[data-topic]").forEach((button) => button.addEventListener("click", () => { searchInput.value = button.dataset.topic; showResult(button.dataset.topic); searchInput.focus(); }));
+        subjectButtons.forEach((button) => button.addEventListener("click", () => { subjectButtons.forEach((item) => item.classList.remove("active")); button.classList.add("active"); searchInput.placeholder = `Search ${button.dataset.subject} topics...`; }));
+        document.getElementById("creatorForm").addEventListener("submit", (event) => {
+            event.preventDefault();
+            const topic = document.getElementById("lessonTopic").value.trim();
+            const body = document.getElementById("lessonBody").value.trim();
+            explanations[topic.toLowerCase()] = body;
+            localStorage.setItem("masproLessons", JSON.stringify(explanations));
+            document.getElementById("creatorStatus").textContent = `“${topic}” is now searchable.`;
+            event.target.reset();
+        });
+    </script>
+</body>
+</html>
